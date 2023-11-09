@@ -1,0 +1,32 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block page_title %}
+
+<h1>To-do List | List your tasks:</h1>
+{% endblock page_title  %}
+
+<!-- form-->
+{% block form %}
+    
+    <form method='POST' class="">
+        {% csrf_token %}
+        <div >{{form.title}}</div>
+        <div>{{form.body}}</div>
+        <button class="btn btn-primary" type="submit">Add</button>
+        <h3>{{forms}}</h3> <!-- not working-->
+        <h3>{{forms.body.errors}}</h3><!-- not working-->
+
+    </form>
+{% endblock form %}
+
+{% block page_content %}
+    {% block todo_details %}
+        {% for todo in todos %}
+            <h2><a href="{% url 'todo_detail' todo.pk %}">{{todo.title}}</a></h2> <!-- todo pk is referring to id -->
+            <h4>{{todo.creation_date}}</h4>
+
+        {% endfor %}
+    {% endblock todo_details %}
+
+{% endblock page_content %}
